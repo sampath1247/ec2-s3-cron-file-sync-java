@@ -1,0 +1,35 @@
+name: Build & Lint
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Compile Java (if present)
+        run: |
+          if [ -f "java/FileSyncLogger.java" ]; then
+            javac java/FileSyncLogger.java
+          else
+            echo "java/FileSyncLogger.java not found; skipping compile."
+          fi
+
+      - name: Lint shell script (bash -n)
+        run: |
+          if [ -f "scripts/sync_script.sh" ]; then
+            bash -n scripts/sync_script.sh
+          else
+            echo "scripts/sync_script.sh not found; skipping bash -n."
+          fi
