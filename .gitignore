@@ -1,0 +1,19 @@
+# Generated data and logs
+sync/
+*.dat
+*.log
+
+# Java build artifacts
+*.class
+out/
+target/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Archives
+*.zip
+*.tar.gz
